@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-
+import bcrypt from "bcryptjs";
 export const login = (req, res) => {
     res.send("Login User");
 }
@@ -12,9 +12,11 @@ export const signup = async (req, res) => {
     try{
         const {fullname,email,username,password,role} = req.body;
 
+        //hash the password
+        const hash = await bcrypt.hash(password, 10);
+
         const emailCheck = await User.findOne({email: email});
         if(emailCheck){
-            //console.log(User.findOne({email: email}));
             return res.status(400).json({error: "Email already exists"});
         }
 
@@ -27,7 +29,7 @@ export const signup = async (req, res) => {
             fullname,
             email,
             username,
-            password,
+            password: hash,
             role
         });
 
