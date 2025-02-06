@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
+import CourtRoom from '../models/courtroom.model.js';
 
 export const protectMsg = async (req, res, next) => {
     try{
@@ -15,14 +16,14 @@ export const protectMsg = async (req, res, next) => {
             return res.status(401).json({error: "Unauthorized access: Invalid token"});
         }
         
-        const user = await User.findById(req.id).select("-password");
+        const user = await User.findById(req.params.id).select("-password");
         if(!user){
             return res.status(404).json({error: "User not found"});
         }
 
         req.user = user;
 
-        const court = await CourtRoom.findById(req.courtRoomId);
+        const court = await CourtRoom.findById(req.params.cid);
         
         if(!court){
             return res.status(404).json({error: "Court Room not found"});

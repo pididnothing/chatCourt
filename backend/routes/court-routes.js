@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('/create-court-room', createCourtRoom);
 
-router.post('/send-msg/:id', protectMsg, sendMsg);
+router.post('/send-msg/:id/:cid', protectMsg, sendMsg);
 
 export default router;

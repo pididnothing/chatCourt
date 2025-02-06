@@ -26,7 +26,7 @@ const createCourtRoom = async (req, res) => {
             messages: []
         });
         await newCourtRoom.save();
-        res.status(201).json({message: "Court Room created successfully"});
+        res.status(201).json({message: "Court Room created successfully", courtRoom: newCourtRoom});
     }catch(error){
         console.log("Error in createCourtRoom controller", error.message);
         res.status(500).json({error: "Internal Server Error"});
@@ -35,10 +35,9 @@ const createCourtRoom = async (req, res) => {
 
 const sendMsg = async (req, res) => {
     try{
-        const id = req.params.id;
-        const content = req.body;
+        const courtRoomId = req.court.id;
+        const content = req.body.content;
         const senderId = req.user._id;
-        const courtRoomId = req.court._id;
         if(!content){
             return res.status(400).json({error: "Message content is required"});
         }
@@ -48,7 +47,7 @@ const sendMsg = async (req, res) => {
             content
         });
         await newMsg.save();
-        const courtRoom = await CourtRoom.findById(courtRoomId);
+        const courtRoom = req.court;
         courtRoom.messages.push(newMsg._id);
         await courtRoom.save();
         res.status(201).json({message: "Message sent successfully"});
