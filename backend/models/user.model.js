@@ -19,11 +19,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: 'Password is required'
     },
-    role:{
-        type: String,
-        default: 'client',
-        enum: ["judge", "lawyer", "client"]
-    },
+    courts:{
+        type: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'CourtRoom'
+            }
+        ],
+        default: []
+    }
 },{
     timestamps: true});
 

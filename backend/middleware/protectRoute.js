@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
 import CourtRoom from '../models/courtroom.model.js';
 
+
+// used in sendMsg and getMsg routes. user and court eistence and participant check. Also creates req.user and req.court.
 export const protectMsg = async (req, res, next) => {
     try{
         const jwttoken = req.cookies.token;
@@ -30,6 +32,11 @@ export const protectMsg = async (req, res, next) => {
         }
 
         req.court = court;
+
+        if(!court.participants.includes(user.id)){
+            return res.status(401).json({error: "Unauthorized access: User not a participant in this Court Room"});
+        }
+
         next();
     }catch(error){
         console.log("Error in protectRoute middleware", error.message);

@@ -5,6 +5,7 @@ import connectToMongo from "./db/connectToMongo.js";
 
 import authRoutes from "./routes/auth-routes.js";
 import courtRoutes from "./routes/court-routes.js";
+import userRoutes from "./routes/user-routes.js";
 
 
 const app = express();
@@ -23,7 +24,7 @@ app.use("/api/auth",authRoutes); // all auth routes
 
 app.use("/api/court",courtRoutes); // all court routes
 
-
+app.use("/api/user",userRoutes); // all user routes
 
 app.listen(PORT,()=>{ 
     connectToMongo();

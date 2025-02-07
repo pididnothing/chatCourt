@@ -59,10 +59,10 @@ const courtRoomSchema = new mongoose.Schema({
         ],
         required: 'Defence Client(s) are required'
     },
-    messages:{
-        type: Array,
+    messages:[{
+        type: mongoose.Schema.Types.ObjectId,
         required: 'Messages are required'
-    }
+    }]
 },{
     timestamps: true
 });

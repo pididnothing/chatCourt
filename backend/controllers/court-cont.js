@@ -2,8 +2,13 @@ import CourtRoom from "../models/courtroom.model.js";
 import Msg from "../models/msg.model.js";
 import User from "../models/user.model.js";
 
-const createCourtRoom = async (req, res) => {
+export const createCourtRoom = async (req, res) => {
     try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+        if(!user){
+            return res.status(404).json({error: "User not found"});
+        }
         const {courtRoomName, judge, prosLawyer, prosClient, defLawyer, defClient} = req.body;
         const participants = [judge, prosLawyer, prosClient, defLawyer, defClient];
         for (let i = 0; i < participants.length; i++) {
@@ -25,7 +30,10 @@ const createCourtRoom = async (req, res) => {
             defClient,
             messages: []
         });
-        await newCourtRoom.save();
+
+        user.courts.push(newCourtRoom._id);
+
+        await Promise.all([user.save(),newCourtRoom.save()]);
         res.status(201).json({message: "Court Room created successfully", courtRoom: newCourtRoom});
     }catch(error){
         console.log("Error in createCourtRoom controller", error.message);
@@ -33,7 +41,7 @@ const createCourtRoom = async (req, res) => {
     }
 }
 
-const sendMsg = async (req, res) => {
+export const sendMsg = async (req, res) => {
     try{
         const courtRoomId = req.court.id;
         const content = req.body.content;
@@ -46,10 +54,9 @@ const sendMsg = async (req, res) => {
             courtRoomId,
             content
         });
-        await newMsg.save();
         const courtRoom = req.court;
         courtRoom.messages.push(newMsg._id);
-        await courtRoom.save();
+        await Promise.all( [newMsg.save(), courtRoom.save()]);
         res.status(201).json({message: "Message sent successfully"});
     }catch(error){
         console.log("Error in sendMsg controller", error.message);
@@ -57,4 +64,13 @@ const sendMsg = async (req, res) => {
     }
 }
 
-export {createCourtRoom, sendMsg};
+export const getMsg = async (req, res) => {
+    try{
+        const courtRoomId = req.court.id;
+        const messages = await Msg.find({courtRoomId}).populate("senderId", "username");
+        res.status(200).json({messages});
+    }catch(error){
+        console.log("Error in getMsg controller", error.message);
+        res.status(500).json({error: "Internal Server Error"});
+    }
+};
