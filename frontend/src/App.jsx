@@ -9,7 +9,10 @@ function App() {
   return (
     <>
       <div className="sm:bg-[url('./assets/scales.png')]  bg-left-top bg-no-repeat bg-contain  p-2 h-screen flex items-center justify-center flex-col">
+        {/* <Login /> */}
+        {/* <Signup /> */}
         <Dashboard />
+
       </div>
     </>
   )
