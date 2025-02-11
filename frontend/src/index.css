@@ -1,4 +1,9 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+@theme {
+  --font-roboto: "Roboto"; 
+}
 
 @plugin "daisyui" {
   themes: all;
@@ -9,11 +14,11 @@
   default: true;
   prefersdark: true;
   color-scheme: "light";
-  --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(95% 0.038 90.164);
-  --color-base-300: oklch(90% 0.076 70.697);
+  --color-base-100: oklch(88% 0.062 18.334);
+  --color-base-200: oklch(45% 0.187 3.815);
+  --color-base-300: oklch(95% 0.038 75.164);
   --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(45% 0.187 3.815);
+  --color-primary: oklch(57% 0.245 27.325);
   --color-primary-content: oklch(93% 0.034 272.788);
   --color-secondary: oklch(65% 0.241 354.308);
   --color-secondary-content: oklch(94% 0.028 342.258);

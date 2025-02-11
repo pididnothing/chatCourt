@@ -1,0 +1,37 @@
+@keyframes typewriter {
+  0% { width: 0; }
+  22.5% { width: 9ch;}
+  67.5% { width: 9ch; }
+  90% { width: 0; }
+  95% { width: 0; }
+  100% { width: 3ch; }
+}
+
+@keyframes abbreviate {
+  0% { content: "chatCourt";}
+  100% { content: "cC."; }
+}
+
+@keyframes enlarge {
+  0% { font-size: 1em; }
+  100% { font-size: 2em; }
+}
+
+@keyframes caret {
+  from, to { border-color: transparent; }
+  50% { border-color: black; }
+}
+
+.before\:animate-typewriter::before {
+  content: "cC";
+  height: fit-content;
+  display: inline-block;
+  border-right: 0.07em solid black;
+  border-left: 0;
+  overflow: hidden;
+  animation: 
+      typewriter 10s steps(9) 1s 1 normal both, /* Writes full text */
+      abbreviate 0s steps(2) 10s 1 normal both, /* Typewriters abbreviation */
+      enlarge 0s steps(2) 10s 1 normal both, /* Enlarges text */
+      caret 1.25s steps(18) 0s 12 both; /* Blinks caret */
+}
