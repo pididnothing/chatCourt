@@ -11,9 +11,9 @@ function Login() {
         <fieldset className="fieldset w-3xl bg-base-300 border-0 p-4 rounded-box">
           <h1 className="text-2xl font-bold">Welcome back,</h1>
           <label className="fieldset-label">Email</label>
-          <input type="email" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg" placeholder="Email" />
+          <input type="email" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Email" />
           <label className="fieldset-label">Password</label>
-          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg focus:-y" placeholder="Password" />
+          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg focus:-y text-base-200" placeholder="Password" />
           <button className="btn btn-neutral mt-4">Login</button>
           <button className="btn btn-link text-primary">Sign Up</button>
         </fieldset>
