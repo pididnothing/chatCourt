@@ -1,3 +1,4 @@
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './pages/auth/login/Login'
 import Signup from './pages/auth/signup/Signup'
@@ -9,10 +10,11 @@ function App() {
   return (
     <>
       <div className="sm:bg-[url('./assets/scales.png')]  bg-left-top bg-no-repeat bg-contain  p-2 h-screen flex items-center justify-center flex-col">
-        {/* <Login /> */}
-        {/* <Signup /> */}
-        <Dashboard />
-
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </div>
     </>
   )

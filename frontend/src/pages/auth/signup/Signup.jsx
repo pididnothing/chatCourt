@@ -1,6 +1,20 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Signup() {
+
+  const [inputs, setInputs] = React.useState({
+    fullName: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const handleSubmit = (e) => {
+    console.log(inputs);
+  }
+
   return (
     <>
       <div className="p-4 h-screen flex items-center justify-center gap-y-6 flex-col font-mono">
@@ -8,17 +22,29 @@ function Signup() {
         <fieldset className="fieldset 2xl:w-3xl md:w-md sm:w-2xs bg-base-300 border-0 p-4 rounded-box text-center">
           <h1 className="text-2xl font-bold">Create an Account</h1>
           <label className="fieldset-label">Full Name</label>
-          <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Full Name" />
+          <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Full Name"
+            onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })} value={inputs.fullName}
+          />
           <label className="fieldset-label">Email</label>
-          <input type="email" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Email" />
+          <input type="email" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Email"
+            onChange={(e) => setInputs({ ...inputs, email: e.target.value })} value={inputs.email}
+          />
           <label className="fieldset-label">Username</label>
-          <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Username" />
+          <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Username"
+            onChange={(e) => setInputs({ ...inputs, username: e.target.value })} value={inputs.username}
+          />
           <label className="fieldset-label">Password</label>
-          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Password" />
+          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Password"
+            onChange={(e) => setInputs({ ...inputs, password: e.target.value })} value={inputs.password}
+          />
           <label className="fieldset-label">Confirm Password</label>
-          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Confirm Password" />
-          <button className="btn btn-neutral mt-4">Sign Up</button>
-          <button className="btn btn-link text-primary">Login</button>
+          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Confirm Password"
+            onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} value={inputs.confirmPassword}
+          />
+          <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Sign Up</button>
+          <Link to="/login">
+            <button className="btn btn-link text-primary">Login</button>
+          </Link>
         </fieldset>
       </div>
     </>
