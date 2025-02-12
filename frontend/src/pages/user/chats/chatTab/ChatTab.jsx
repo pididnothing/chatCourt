@@ -4,8 +4,7 @@ import Sendmsg from '../sendmsg/Sendmsg'
 function ChatTab() {
     return (
         <>
-            <input type="radio" name="my_tabs_3" className="tab h-1/25" aria-label="Tab 1" />
-            <div className='tab-content relative rounded-box bg-white overflow-scroll'>
+            <div className=' w-full h-full relative rounded-box bg-white overflow-auto'>
                 <Message />
                 <Message />
                 <Message />
