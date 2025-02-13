@@ -1,17 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useSignup from '../../../hooks/useSignup.js'
+import toast from 'react-hot-toast';
 
 function Signup() {
 
   const [inputs, setInputs] = React.useState({
-    fullName: '',
+    fullname: '',
     email: '',
     username: '',
     password: '',
     confirmPassword: ''
   })
 
-  const handleSubmit = (e) => {
+  const { loading, signup } = useSignup();
+
+  const handleSubmit = async (e) => {
+    try {
+      await signup(inputs);
+    }
+    catch (error) {
+      console.log("Error in signup");
+      toast.error("Error in signup");
+      toast.error(error.message);
+    }
     console.log(inputs);
   }
 
@@ -23,12 +35,14 @@ function Signup() {
           <h1 className="text-2xl font-bold">Create an Account</h1>
           <label className="fieldset-label">Full Name</label>
           <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Full Name"
-            onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })} value={inputs.fullName}
+            onChange={(e) => setInputs({ ...inputs, fullname: e.target.value })} value={inputs.fullname}
           />
+          <div className="validator-hint hidden">Enter valid name</div>
           <label className="fieldset-label">Email</label>
           <input type="email" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Email"
             onChange={(e) => setInputs({ ...inputs, email: e.target.value })} value={inputs.email}
           />
+          <div className="validator-hint hidden">Enter valid email address</div>
           <label className="fieldset-label">Username</label>
           <input type="text" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Username"
             onChange={(e) => setInputs({ ...inputs, username: e.target.value })} value={inputs.username}
@@ -42,6 +56,7 @@ function Signup() {
             onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} value={inputs.confirmPassword}
           />
           <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Sign Up</button>
+
           <Link to="/login">
             <button className="btn btn-link text-primary">Login</button>
           </Link>

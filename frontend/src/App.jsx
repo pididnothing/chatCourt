@@ -3,6 +3,7 @@ import './App.css'
 import Login from './pages/auth/login/Login'
 import Signup from './pages/auth/signup/Signup'
 import Dashboard from './pages/user/dashboard'
+import { Toaster } from 'react-hot-toast'
 //scales img src: https://pixabay.com/vectors/scales-balance-weigh-justice-8870744/ 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
+        <Toaster />
       </div>
     </>
   )

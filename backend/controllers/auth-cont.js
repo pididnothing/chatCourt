@@ -49,7 +49,7 @@ export const logout = (req, res) => {
 
 export const signup = async (req, res) => {
     try{
-        const {fullname,email,username,password,role} = req.body;
+        const {fullname,email,username,password} = req.body;
 
         //hash the password
         const hash = await bcrypt.hash(password, 10);
@@ -69,11 +69,10 @@ export const signup = async (req, res) => {
             email,
             username,
             password: hash,
-            role
         });
 
         genTokenandCookie(newUser._id, res);
-
+        console.log(newUser);
         await newUser.save();
         res.status(200).json({
             message: "User created successfully",
@@ -81,11 +80,12 @@ export const signup = async (req, res) => {
             fullname: newUser.fullname,
             username: newUser.username,
             email: newUser.email,
-            role: newUser.role
         });
+        console.log(req.body);
 
     }catch(error){
-        console.log("Error in signup controller", error.message);
+        console.log("Error in signup controller", error.message, req.body);
         res.status(500).json({error: "Internal Server Error"});
+        
     } 
 }
