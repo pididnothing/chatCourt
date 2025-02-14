@@ -24,7 +24,6 @@ function Signup() {
       toast.error("Error in signup");
       toast.error(error.message);
     }
-    console.log(inputs);
   }
 
   return (
@@ -55,7 +54,9 @@ function Signup() {
           <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Confirm Password"
             onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} value={inputs.confirmPassword}
           />
-          <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4">Sign Up</button>
+          <button type="submit" onClick={handleSubmit} className="btn btn-neutral mt-4" disabled={loading}>
+            {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
+          </button>
 
           <Link to="/login">
             <button className="btn btn-link text-primary">Login</button>

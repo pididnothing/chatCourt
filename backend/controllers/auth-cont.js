@@ -5,8 +5,8 @@ import genTokenandCookie from "../utils/tokenGen.js";
 
 export const login = async (req, res) => {
     try {
-        const {email, username, password} = req.body;
-        if(!email && !username){
+        const {email, password} = req.body;
+        if(!email){
             return res.status(400).json({error: "Email or Username is required"});
         }
         if(!password){
@@ -26,7 +26,6 @@ export const login = async (req, res) => {
             message: "User logged in successfully",
             _id: user._id,
             fullname: user.fullname,
-            username: user.username,
             email: user.email,
             role: user.role
         });
@@ -81,7 +80,6 @@ export const signup = async (req, res) => {
             username: newUser.username,
             email: newUser.email,
         });
-        console.log(req.body);
 
     }catch(error){
         console.log("Error in signup controller", error.message, req.body);

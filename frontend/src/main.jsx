@@ -4,11 +4,14 @@ import './index.css'
 import './snippets/animations/loginh1.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import { AuthContextProvider } from './context/authContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
     </BrowserRouter>
   </StrictMode>,
 )

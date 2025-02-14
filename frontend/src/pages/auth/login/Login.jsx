@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import useLogin from '../../../hooks/useLogin'
+import toast from 'react-hot-toast'
 
 function Login() {
   const [inputs, setInputs] = React.useState({
@@ -7,8 +9,17 @@ function Login() {
     password: ''
   })
 
-  const handleSubmit = (e) => {
-    console.log(inputs);
+  const { loading, login } = useLogin();
+
+  const handleSubmit = async (e) => {
+    try {
+      await login(inputs);
+
+    } catch (error) {
+      console.log("Error in login");
+      toast.error("Error in login");
+      toast.error(error.message);
+    }
   }
 
   return (
@@ -28,7 +39,9 @@ function Login() {
           <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg focus:-y text-base-200" placeholder="Password"
             onChange={(e) => setInputs({ ...inputs, password: e.target.value })} value={inputs.password}
           />
-          <button onClick={handleSubmit} className="btn btn-neutral mt-4">Login</button>
+          <button onClick={handleSubmit} className="btn btn-neutral mt-4">
+            {loading ? <span className='loading loading-spinner'></span> : "Login"}
+          </button>
           <Link to="/signup" className='justify-self-center'>
             <button className="btn btn-link text-primary">Sign Up</button>
           </Link>
