@@ -1,8 +1,8 @@
 import React from 'react'
 import Search from './components/Search'
 import Logout from './components/Logout'
-import CourtCard from './components/CourtCard'
 import { BsFillPersonBadgeFill } from "react-icons/bs";
+import Courts from './components/Courts';
 
 function Sidebar() {
     return (
@@ -16,18 +16,7 @@ function Sidebar() {
             </div>
             <div className='divider px-3'></div>
             <div className='flex flex-col h-14/20 overflow-auto'>
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
-                <CourtCard />
+                <Courts />
             </div>
             <div className='divider px-3'></div>
             <div className='flex flex-col h-1/30'>

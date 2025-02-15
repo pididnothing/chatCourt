@@ -4,7 +4,7 @@ import User from "../models/user.model.js";
 
 export const createCourtRoom = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const userId = req.user._id;
         const user = await User.findById(userId);
         if(!user){
             return res.status(404).json({error: "User not found"});
@@ -39,13 +39,13 @@ export const createCourtRoom = async (req, res) => {
         console.log("Error in createCourtRoom controller", error.message);
         res.status(500).json({error: "Internal Server Error"});
     }
-}
+};
 
 export const sendMsg = async (req, res) => {
     try{
         const courtRoomId = req.court.id;
         const content = req.body.content;
-        const senderId = req.user._id;
+        const senderId = req.user.id;
         if(!content){
             return res.status(400).json({error: "Message content is required"});
         }
@@ -62,7 +62,7 @@ export const sendMsg = async (req, res) => {
         console.log("Error in sendMsg controller", error.message);
         res.status(500).json({error: "Internal Server Error"});
     }
-}
+};
 
 export const getMsg = async (req, res) => {
     try{
@@ -71,6 +71,18 @@ export const getMsg = async (req, res) => {
         res.status(200).json({messages});
     }catch(error){
         console.log("Error in getMsg controller", error.message);
+        res.status(500).json({error: "Internal Server Error"});
+    }
+};
+
+export const getCourtCard = async (req, res) => {
+    try{
+        const courtRoomId = req.court.id;
+        const userId = req.user.id;
+        const courtRoom = await CourtRoom.findById(courtRoomId);
+        res.status(200).json({courtRoom});
+    }catch(error){
+        console.log("Error in getCourtCard controller", error.message);
         res.status(500).json({error: "Internal Server Error"});
     }
 };

@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import './App.css'
 import Login from './pages/auth/login/Login'
 import Signup from './pages/auth/signup/Signup'
-import Dashboard from './pages/user/dashboard'
+import Dashboard from './pages/user/Dashboard.jsx'
 import { Toaster } from 'react-hot-toast'
 import { useAuthContext } from './context/authContext.jsx'
 //scales img src: https://pixabay.com/vectors/scales-balance-weigh-justice-8870744/ 
