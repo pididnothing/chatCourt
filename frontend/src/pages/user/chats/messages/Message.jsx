@@ -1,13 +1,41 @@
 import React from 'react'
 
-function Message() {
+function Message(msg) {
+    const user = localStorage.getItem('chat-user');
+    const uid = JSON.parse(user)._id;
+    const time = new Date(msg.msg.updatedAt);
+
+    const getTimeDifference = (date) => {
+        const now = new Date();
+        const diffInMs = now - date;
+        const diffInMinutes = Math.floor(diffInMs / 60000);
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        const diffInDays = Math.floor(diffInHours / 24);
+        const diffInWeeks = Math.floor(diffInDays / 7);
+        const diffInMonths = Math.floor(diffInDays / 30);
+        const diffInYears = Math.floor(diffInDays / 365);
+
+        if (diffInMinutes < 60) {
+            return `${diffInMinutes} minute${diffInMinutes !== 1 ? 's' : ''} ago`;
+        } else if (diffInHours < 24) {
+            return `${diffInHours} hour${diffInHours !== 1 ? 's' : ''} ago`;
+        } else if (diffInDays < 7) {
+            return `${diffInDays} day${diffInDays !== 1 ? 's' : ''} ago`;
+        } else if (diffInWeeks < 4) {
+            return `${diffInWeeks} week${diffInWeeks !== 1 ? 's' : ''} ago`;
+        } else if (diffInMonths < 12) {
+            return `${diffInMonths} month${diffInMonths !== 1 ? 's' : ''} ago`;
+        } else {
+            return `${diffInYears} year${diffInYears !== 1 ? 's' : ''} ago`;
+        }
+    };
     return (
-        <div className="chat chat-start">
+        <div className={`chat ${msg.msg.senderId._id === uid ? 'chat-end' : 'chat-start'}`}>
             <div className="chat-header">
-                Obi-Wan Kenobi
-                <time className="text-xs opacity-50">2 hours ago</time>
+                {msg.msg.senderId.username}
+                <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
             </div>
-            <div className="chat-bubble">You were the Chosen One!</div>
+            <div className="chat-bubble">{msg.msg.content}</div>
             <div className="chat-footer opacity-50">Seen</div>
         </div>
     )

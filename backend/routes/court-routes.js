@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCourtRoom, sendMsg, getMsg, getCourtCard } from '../controllers/court-cont.js';
+import { createCourtRoom, sendMsg, getMsgs, getCourtCard } from '../controllers/court-cont.js';
 import { protectCourt, protectMsg } from '../middleware/protectRoute.js';
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.post('/create-court-room', protectCourt, createCourtRoom);
 router.post('/send-msg/:cid', protectMsg, sendMsg);
 
 // get messages in a court room
-router.get('/get-msg/:cid', protectMsg, getMsg);
+router.get('/get-msg/:cid', protectMsg, getMsgs);
 
 // get court card details
 router.get('/get-court-card/:cid', protectMsg, getCourtCard);

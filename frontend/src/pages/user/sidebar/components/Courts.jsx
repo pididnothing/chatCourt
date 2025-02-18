@@ -4,10 +4,10 @@ import useGetCourts from '../../../../hooks/useGetCourts';
 
 function Courts() {
     const { loading, courts } = useGetCourts();
-    console.log(courts);
+    // console.log(courts);
 
     return (<div>
-        {loading ? <h1>Loading...</h1> : courts.map(id => <CourtCard key={id} courtRoomId={id} />)}
+        {loading ? <h1 className='loading loading-spinner'></h1> : courts.map(id => <CourtCard key={id} courtRoomId={id} />)}
     </div>
     )
 }

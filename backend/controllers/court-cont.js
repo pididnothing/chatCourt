@@ -64,7 +64,7 @@ export const sendMsg = async (req, res) => {
     }
 };
 
-export const getMsg = async (req, res) => {
+export const getMsgs = async (req, res) => {
     try{
         const courtRoomId = req.court.id;
         const messages = await Msg.find({courtRoomId}).populate("senderId", "username");

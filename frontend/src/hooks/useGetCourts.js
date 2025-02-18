@@ -1,4 +1,5 @@
 import React from 'react'
+import toast from 'react-hot-toast'
 
 function useGetCourts() {
     const [loading, setLoading] = React.useState(false);
@@ -20,10 +21,12 @@ function useGetCourts() {
                 if (res.ok) {
                 setCourts(data.courts);
                 } else {
+                toast.error(data.error);
                 console.log(data.error);
                 }
             } catch (error) {
                 console.log(error.message);
+                toast.error(error.message);
             } finally {
                 setLoading(false);
             }
