@@ -9,7 +9,7 @@ import { useAuthContext } from './context/authContext.jsx'
 
 function App() {
   const { authUser } = useAuthContext();
-  console.log(authUser)
+  // console.log(authUser)
   return (
     <>
       <div className="sm:bg-[url('./assets/scales.png')]  bg-left-top bg-no-repeat bg-contain  p-2 h-screen flex items-center justify-center flex-col">

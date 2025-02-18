@@ -5,10 +5,10 @@ import useCourt from '../../../../store/useCourt'
 
 function ChatTab() {
     const selectedCourt = useCourt((state) => state.selectedCourt);
-    const { loading, msgs } = useGetMsgs(selectedCourt);
-    // console.log("Messages: ", msgs);
+    const { loading, messages } = useGetMsgs(selectedCourt);
     if (selectedCourt === null) return <div className='w-full h-full bg-transparent flex justify-center items-center font-mono'>Choose a CourtRoom to get started!</div>
-    return (loading ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div> : <div className=' w-full h-full relative rounded-box bg-white overflow-auto'> {msgs.map(msg => <Message key={msg._id} msg={msg} />)}  </div>)
+
+    return (loading ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div> : <div className=' w-full h-full relative rounded-box bg-white overflow-auto'> {messages.map(msg => <Message key={msg._id} msg={msg} />)}  </div>)
 }
 
 //Starter Code

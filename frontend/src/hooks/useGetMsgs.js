@@ -1,8 +1,9 @@
 import React from 'react'
 import toast from 'react-hot-toast'
+import useCourt from '../store/useCourt'
 
 const useGetMsgs = (courtRoomId) => {
-    const [msgs, setMsgs] = React.useState([])
+    const { messages, setMessages } = useCourt()
     const [loading, setLoading] = React.useState(false)
     // console.log("Court Room ID: ", courtRoomId)
     React.useEffect(() => {
@@ -19,7 +20,7 @@ const useGetMsgs = (courtRoomId) => {
                 const data = await res.json()
                 // console.log("data:",data)
                 if (res.ok) {
-                    setMsgs(data.messages)
+                    setMessages(data.messages)
                 } else {
                     toast.error(data.error)
                     console.log(data.error)
@@ -32,8 +33,8 @@ const useGetMsgs = (courtRoomId) => {
             }
         }
         getMsgs()
-    }, [courtRoomId])
-    return { loading, msgs }
+    }, [courtRoomId, setMessages])
+    return { loading, messages }
 
 }
 
