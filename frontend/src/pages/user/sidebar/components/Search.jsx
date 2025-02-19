@@ -18,12 +18,18 @@ function Search() {
         }
         setSelectedCourt(court._id)
     }
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSubmit()
+        }
+    }
     return (
         <div>
             <div className='fieldset flex'>
                 <input type='text' className='input w-full bg-base-200 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-100'
                     placeholder='Search'
-                    onChange={(e) => setSearch(e.target.value)} />
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={handleKeyDown} />
                 <button className='btn w-10% bg-accent border-0' onClick={handleSubmit}>
                     <LuArrowDownNarrowWide size={24} color='#a0004a' />
                 </button>

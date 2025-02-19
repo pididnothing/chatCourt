@@ -36,7 +36,7 @@ function Login() {
             onChange={(e) => setInputs({ ...inputs, email: e.target.value })} value={inputs.email}
           />
           <label className="fieldset-label">Password</label>
-          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg focus:-y text-base-200" placeholder="Password"
+          <input type="password" className="input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200" placeholder="Password"
             onChange={(e) => setInputs({ ...inputs, password: e.target.value })} value={inputs.password}
           />
           <button onClick={handleSubmit} className="btn btn-neutral mt-4">
