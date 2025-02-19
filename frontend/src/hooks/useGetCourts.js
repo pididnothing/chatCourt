@@ -1,10 +1,10 @@
 import React from 'react'
 import toast from 'react-hot-toast'
-
+import useCourt from '../store/useCourt';
 function useGetCourts() {
     const [loading, setLoading] = React.useState(false);
     const [courts, setCourts] = React.useState([]);
-
+    const { selectedCourt} = useCourt();
     React.useEffect(() => {
         const getCourts = async () => {
             setLoading(true);
@@ -32,7 +32,7 @@ function useGetCourts() {
             }
         };
         getCourts();
-    },[]);
+    },[selectedCourt]);
     
     return { loading, courts };
 }
