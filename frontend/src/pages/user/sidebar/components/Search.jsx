@@ -1,12 +1,30 @@
 import React from 'react'
 import { LuArrowDownNarrowWide } from "react-icons/lu";
-
+import useCourt from '../../../../store/useCourt';
+import useGetCourts from '../../../../hooks/useGetCourts';
+import toast from 'react-hot-toast'
 function Search() {
+    const [search, setSearch] = React.useState('')
+    const { setSelectedCourt } = useCourt()
+    const { courts } = useGetCourts()
+
+    const handleSubmit = () => {
+        if (!search) return
+        // console.log("Courts:", courts)
+        const court = courts.find((court) => court.courtRoomName.toLowerCase().includes(search.toLowerCase()))
+        if (!court) {
+            toast.error('Court not found')
+            return
+        }
+        setSelectedCourt(court._id)
+    }
     return (
         <div>
             <div className='fieldset flex'>
-                <input type='text' className='input w-full bg-base-200 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-100' placeholder='Search' />
-                <button className='btn w-10% bg-accent border-0'>
+                <input type='text' className='input w-full bg-base-200 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-100'
+                    placeholder='Search'
+                    onChange={(e) => setSearch(e.target.value)} />
+                <button className='btn w-10% bg-accent border-0' onClick={handleSubmit}>
                     <LuArrowDownNarrowWide size={24} color='#a0004a' />
                 </button>
             </div>

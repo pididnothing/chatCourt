@@ -7,7 +7,7 @@ function Courts() {
     // console.log(courts);
 
     return (<div>
-        {loading ? <h1 className='loading loading-spinner'></h1> : courts.map(id => <CourtCard key={id} courtRoomId={id} />)}
+        {loading ? <h1 className='loading loading-spinner'></h1> : courts.map(court => <CourtCard key={court._id} courtRoomId={court._id} />)}
     </div>
     )
 }
