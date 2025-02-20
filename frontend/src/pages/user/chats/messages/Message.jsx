@@ -4,6 +4,7 @@ function Message(msg) {
     const user = localStorage.getItem('chat-user');
     const uid = JSON.parse(user)._id;
     const time = new Date(msg.msg.updatedAt);
+    const courtRoom = msg.courtRoom;
 
     const getTimeDifference = (date) => {
         const now = new Date();
@@ -29,13 +30,31 @@ function Message(msg) {
             return `${diffInYears} year${diffInYears !== 1 ? 's' : ''} ago`;
         }
     };
+    const getRoleClass = () => {
+        if (senderIsJudge) {
+            return 'bg-yellow-200';
+        } else if (senderIsProsecution) {
+            return 'bg-red-200';
+        } else if (senderIsDefence) {
+            return 'bg-blue-200';
+        }
+        return 'bg-gray-200';
+    };
+    console.log(msg.msg.senderId._id, " : ", courtRoom);
+    const isSender = uid === msg.msg.senderId._id;
+    const senderIsProsecution = courtRoom.prosLawyer[0] === msg.msg.senderId._id || courtRoom.prosClient[0] === msg.msg.senderId._id;
+    const senderIsDefence = courtRoom.defLawyer === msg.msg.senderId._id || courtRoom.defClient[0] === msg.msg.senderId._id;
+    const senderIsJudge = courtRoom.judge === msg.msg.senderId._id;
+    const isProsecution = uid === courtRoom.prosLawyer[0] || uid === courtRoom.prosClient[0];
+    const isDefence = uid === courtRoom.defLawyer[0] || uid === courtRoom.defClient[0];
+
     return (
-        <div className={`chat ${msg.msg.senderId._id === uid ? 'chat-end' : 'chat-start'}`}>
+        <div className={`chat ${isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
             <div className="chat-header">
                 {msg.msg.senderId.username}
                 <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
             </div>
-            <div className="chat-bubble">{msg.msg.content}</div>
+            <div className={`chat-bubble ${getRoleClass()}`}>{msg.msg.content}</div>
             <div className="chat-footer opacity-50">Seen</div>
         </div>
     )

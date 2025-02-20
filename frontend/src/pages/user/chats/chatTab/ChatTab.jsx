@@ -2,13 +2,15 @@ import React from 'react'
 import Message from '../messages/Message'
 import useGetMsgs from '../../../../hooks/useGetMsgs'
 import useCourt from '../../../../store/useCourt'
+import useGetCourtCard from '../../../../hooks/useGetCourtCard'
 
 function ChatTab() {
-    const selectedCourt = useCourt((state) => state.selectedCourt);
+    const { selectedCourt } = useCourt();
     const { loading, messages } = useGetMsgs(selectedCourt);
-    if (selectedCourt === null) return <div className='w-full h-full bg-transparent flex justify-center items-center font-mono'>Choose a CourtRoom to get started!</div>
-
-    return (loading ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div> : <div className=' w-full h-full relative rounded-box bg-white overflow-auto'> {messages.map(msg => <Message key={msg._id} msg={msg} />)}  </div>)
+    const { courtCard } = useGetCourtCard(selectedCourt);
+    // console.log("Here:", courtCard);
+    if (selectedCourt === null) return <div className='w-full h-full bg-transparent flex justify-center items-center font-mono'>Choose a CourtRoom to get started!</div>;
+    return (loading ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div> : <div className=' w-full h-full relative rounded-box bg-white overflow-auto'> {messages.map(msg => <Message key={msg._id} msg={msg} courtRoom={courtCard} />)}  </div>)
 }
 
 //Starter Code

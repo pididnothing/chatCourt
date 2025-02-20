@@ -1,4 +1,6 @@
+import { get } from 'mongoose';
 import React from 'react'
+import { getCourtCard } from '../../../backend/controllers/court-cont';
 
 function useGetCourtCard(courtRoomId) {
     const [loading, setLoading] = React.useState(false);
@@ -7,7 +9,6 @@ function useGetCourtCard(courtRoomId) {
     React.useEffect(() => {
         const getCourtCard = async () => {
             setLoading(true);
-
             try {
                 const res = await fetch(`/api/court/get-court-card/${courtRoomId}`, {
                 method: 'GET',
@@ -28,8 +29,9 @@ function useGetCourtCard(courtRoomId) {
                 setLoading(false);
             }
         };
+        if(courtRoomId!==null)
         getCourtCard();
-    },[]);
+    },[courtRoomId]);
     
     return { loading, courtCard };
 }

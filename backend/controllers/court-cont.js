@@ -77,9 +77,8 @@ export const getMsgs = async (req, res) => {
 
 export const getCourtCard = async (req, res) => {
     try{
-        const courtRoomId = req.court.id;
+        const courtRoom = req.court;
         const userId = req.user.id;
-        const courtRoom = await CourtRoom.findById(courtRoomId);
         res.status(200).json({courtRoom});
     }catch(error){
         console.log("Error in getCourtCard controller", error.message);
