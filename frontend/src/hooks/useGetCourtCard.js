@@ -1,6 +1,4 @@
-import { get } from 'mongoose';
 import React from 'react'
-import { getCourtCard } from '../../../backend/controllers/court-cont';
 
 function useGetCourtCard(courtRoomId) {
     const [loading, setLoading] = React.useState(false);

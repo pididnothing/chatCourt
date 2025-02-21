@@ -1,6 +1,8 @@
 import CourtRoom from "../models/courtroom.model.js";
 import Msg from "../models/msg.model.js";
 import User from "../models/user.model.js";
+import { getReceiverSocketId } from "../socket/socket.js";
+import { io } from "../socket/socket.js";
 
 export const createCourtRoom = async (req, res) => {
     try {
@@ -57,6 +59,14 @@ export const sendMsg = async (req, res) => {
         const courtRoom = req.court;
         courtRoom.messages.push(newMsg._id);
         await Promise.all( [newMsg.save(), courtRoom.save()]);
+
+        const participants = req.court.participants.filter(participant => participant.toString() !== senderId.toString());
+        participants.forEach(async participant => {
+            const receiverSocketId = getReceiverSocketId(participant);
+            if(receiverSocketId){
+                io.to(receiverSocketId).emit("newMsg", newMsg);
+            }
+        });
         res.status(201).json({message: newMsg});
     }catch(error){
         console.log("Error in sendMsg controller", error.message);

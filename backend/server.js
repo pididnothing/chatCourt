@@ -8,7 +8,8 @@ import courtRoutes from "./routes/court-routes.js";
 import userRoutes from "./routes/user-routes.js";
 
 
-const app = express();
+import {app, server} from "./socket/socket.js";
+ 
 const PORT = process.env.PORT || 8000;
 
 dotenv.config();
@@ -26,7 +27,7 @@ app.use("/api/court",courtRoutes); // all court routes
 
 app.use("/api/user",userRoutes); // all user routes
 
-app.listen(PORT,()=>{ 
+server.listen(PORT,()=>{ 
     connectToMongo();
     console.log(`Server active on port ${PORT}`);
     });

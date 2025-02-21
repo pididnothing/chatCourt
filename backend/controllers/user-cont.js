@@ -4,7 +4,7 @@ export const getCourts = async (req, res) => {
     try {
         const id = req.user.id;
         const user = await User.findById(id);
-        const courts = await Court.find({ _id: { $in: user.courts } });
+        const courts = await Court.find({ participants: { $in: [id] } });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
