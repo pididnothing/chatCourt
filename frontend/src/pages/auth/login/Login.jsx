@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import useLogin from '../../../hooks/useLogin'
 import toast from 'react-hot-toast'
+// import gsap from 'gsap'
+// import { useGSAP } from '@gsap/react'
+// import { TextPlugin } from "gsap/TextPlugin";
 
 function Login() {
   const [inputs, setInputs] = React.useState({
@@ -22,12 +25,24 @@ function Login() {
     }
   }
 
+  // gsap.registerPlugin(useGSAP); // register the hook to avoid React version discrepancies 
+  // gsap.registerPlugin(TextPlugin);
+  // const typer = useRef();
+  // useGSAP(() => {
+  //   gsap.to(typer.current, { text: { value: "chatCourt", newClass: "" }, duration: 3, ease: "none" });
+  //   gsap.to(typer.current, { text: "", duration: 3, ease: "none", delay: 3.5 });
+  //   gsap.to(typer.current, { text: { value: "cC.", newClass: "text-9xl" }, duration: 1, ease: "none", delay: 7 });
+  // })
+
   return (
     <>
       <div className="p-4 h-screen flex items-center justify-center gap-y-6 flex-col border-0 font-mono ">
         <h1
           className="absolute top-1 w-[max-content] font-mono text-6xl before:animate-typewriter">
         </h1>
+        {/* <div ref={typer} className='absolute top-1 w-[max-content] font-mono text-6xl'>
+          <h1 className=""></h1>
+        </div> */}
         <br></br>
         <fieldset className="fieldset 2xl:w-3xl md:w-md sm:w-2xs bg-base-300 border-0 p-4 rounded-box">
           <h1 className="text-2xl font-bold">Welcome back,</h1>

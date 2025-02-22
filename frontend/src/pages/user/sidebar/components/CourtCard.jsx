@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import useGetCourtCard from '../../../../hooks/useGetCourtCard';
 import useCourt from '../../../../store/useCourt';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-function CourtCard({ courtRoomId }) {
+function CourtCard({ courtRoomId, number }) {
+
+    const courtcard = useRef();
+    gsap.registerPlugin(useGSAP); // register the hook to avoid React version discrepancies
+    useGSAP(() => {
+        gsap.from(courtcard.current, { y: 10, opacity: 0, duration: 1.5, ease: "elastic", delay: 1 + number / 10 });
+    });
+
     const { loading, courtCard } = useGetCourtCard(courtRoomId);
     // console.log("Court card: ", courtCard);
     const { selectedCourt, setSelectedCourt } = useCourt();
     return (
-        <div>
+        <div ref={courtcard}>
             <div className={`card-sm ${courtRoomId == selectedCourt ? "bg-accent" : "bg-base-100"} rounded p-1 m-1.5 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg hover:cursor-pointer`} onClick={() => { setSelectedCourt(courtRoomId) }}>
                 <div className='card-title'>{loading ? <span className='loading loading-infinity'></span> : courtCard.courtRoomName}</div>
             </div>

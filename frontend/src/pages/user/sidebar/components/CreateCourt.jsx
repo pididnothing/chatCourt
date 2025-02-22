@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import toast from 'react-hot-toast'
 import useCreateCourt from '../../../../hooks/useCreateCourt';
 import useCourt from '../../../../store/useCourt';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const CreateCourt = () => {
+    const createbutton = useRef();
+    gsap.registerPlugin(useGSAP); // register the hook to avoid React version discrepancies
+    useGSAP(() => {
+        gsap.from(createbutton.current, { y: 10, opacity: 0, duration: 1.5, ease: "out", delay: 3.5 });
+    })
+
     const { loading, createCourt } = useCreateCourt(false);
     const { setSelectedCourt } = useCourt();
     const [courtData, setCourtData] = React.useState({
@@ -52,7 +60,7 @@ const CreateCourt = () => {
     }
     return (
         <div>
-            <button className='btn w-full' onClick={handleSubmit}>Create Court</button>
+            <button ref={createbutton} className='btn w-full' onClick={handleSubmit}>Create Court</button>
             <dialog id="create-form-modal" className="modal flex items-center justify-center flex-col gap-1">
                 <h1> Press <kbd className='kbd'>Esc</kbd> to exit</h1>
                 <fieldset className="fieldset 2xl:w-3xl md:w-md sm:w-2xs bg-base-300 border-0 p-4 rounded-box">

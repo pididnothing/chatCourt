@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Message from '../messages/Message'
 import useGetMsgs from '../../../../hooks/useGetMsgs'
 import useCourt from '../../../../store/useCourt'
@@ -6,12 +6,13 @@ import useGetCourtCard from '../../../../hooks/useGetCourtCard'
 import useListenMessages from '../../../../hooks/useListenMessages'
 
 function ChatTab() {
+
     const { selectedCourt } = useCourt();
     const { loading, messages } = useGetMsgs(selectedCourt);
     const { courtCard } = useGetCourtCard(selectedCourt);
     useListenMessages();
     // console.log("Here:", courtCard);
-    if (selectedCourt === null) return <div className='w-full h-full bg-transparent flex justify-center items-center font-mono'>Choose a CourtRoom to get started!</div>;
+    if (selectedCourt === null) return <div className='w-full h-full bg-transparent flex justify-center items-center font-mono'> Choose a CourtRoom to get started!</div>;
     return (loading ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div> : <div className=' w-full h-full relative rounded-box bg-white overflow-auto'> {messages.map(msg => <Message key={msg._id} msg={msg} courtRoom={courtCard} />)}  </div>)
 }
 

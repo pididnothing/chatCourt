@@ -4,7 +4,7 @@ import Chatwindow from './chats/Chatwindow'
 
 function Dashboard() {
     return (
-        <div className='flex w-full h-full gap-1.5'>
+        <div className='flex w-full h-full gap-1.5 overflow-hidden'>
             <Sidebar />
             <Chatwindow />
         </div>

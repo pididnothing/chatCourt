@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { BsFillPersonBadgeFill } from "react-icons/bs";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const Profile = () => {
     const user = JSON.parse(localStorage.getItem('chat-user'));
+    const profile = useRef();
+    gsap.registerPlugin(useGSAP); // register the hook to avoid React version discrepancies
+    useGSAP(() => {
+        gsap.from(profile.current, { x: -500, duration: 1.5, ease: "bounce", delay: 1.6 });
+    });
     return (
         <div>
-            <button className='btn'><BsFillPersonBadgeFill size={24} onClick={() => document.getElementById('profile-modal').showModal()} /></button>
+            <button ref={profile} className='btn'><BsFillPersonBadgeFill size={24} onClick={() => document.getElementById('profile-modal').showModal()} /></button>
             <dialog id="profile-modal" className="modal flex items-center justify-center flex-col gap-1">
                 <h1> Press <kbd className='kbd'>Esc</kbd> to exit</h1>
                 <fieldset className="fieldset 2xl:w-3xl md:w-md sm:w-2xs bg-base-300 border-0 p-4 rounded-box">
