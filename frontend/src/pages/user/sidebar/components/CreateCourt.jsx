@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import toast from 'react-hot-toast'
 import useCreateCourt from '../../../../hooks/useCreateCourt';
 import useCourt from '../../../../store/useCourt';
+import useNewCourt from '../../../../store/useNewCourt';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -14,6 +15,7 @@ const CreateCourt = () => {
 
     const { loading, createCourt } = useCreateCourt(false);
     const { setSelectedCourt } = useCourt();
+    const { setNewCourt } = useNewCourt();
     const [courtData, setCourtData] = React.useState({
         courtRoomName: '',
         judge: '',
@@ -44,6 +46,7 @@ const CreateCourt = () => {
             })
             console.log(res)
             setSelectedCourt(res.body.courtRoom._id)
+            setNewCourt(res.body.courtRoom._id)
         } catch (error) {
             toast.error(error.message)
             console.log(error.message)

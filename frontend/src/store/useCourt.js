@@ -1,12 +1,11 @@
-import React from 'react'
-import {create} from 'zustand'
-
+import React from "react";
+import { create } from "zustand";
 
 const useCourt = create((set) => ({
-    selectedCourt: null,
-    setSelectedCourt: (selCourt) => set({selectedCourt: selCourt}),
-    messages:[],
-    setMessages: (msgs) => set({messages:msgs}),
-}))
+  selectedCourt: null,
+  setSelectedCourt: (selCourt) => set({ selectedCourt: selCourt }),
+  messages: [],
+  setMessages: (msgs) => set({ messages: msgs }),
+}));
 
-export default useCourt
+export default useCourt;
