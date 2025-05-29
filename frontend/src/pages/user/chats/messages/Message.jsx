@@ -58,7 +58,9 @@ function Message(msg) {
                 {msg.msg.senderId.username}
                 <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
             </div>
-            <div className={`chat-bubble ${getRoleClass()}`}>{msg.msg.content}</div>
+            <div className={`chat-bubble ${getRoleClass()} break-words whitespace-pre-line max-w-md`}>
+                {msg.msg.content}
+            </div>
             <div className="chat-footer opacity-50">Seen</div>
         </div>
     )
