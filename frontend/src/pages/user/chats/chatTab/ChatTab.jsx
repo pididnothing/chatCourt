@@ -4,6 +4,7 @@ import useGetMsgs from '../../../../hooks/useGetMsgs'
 import useCourt from '../../../../store/useCourt'
 import useGetCourtCard from '../../../../hooks/useGetCourtCard'
 import useListenMessages from '../../../../hooks/useListenMessages'
+import courtProfile from './courtProfile'
 
 function ChatTab() {
     const { selectedCourt } = useCourt();
@@ -26,6 +27,7 @@ function ChatTab() {
         loading
             ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div>
             : <div ref={chatContainerRef} className='w-full h-full relative rounded-box bg-white overflow-auto'>
+                <div className="sticky top-0 left-0 z-10">{courtProfile(courtCard)}</div>
                 {messages.map(msg => <Message key={msg._id} msg={msg} courtRoom={courtCard} />)}
             </div>
     )

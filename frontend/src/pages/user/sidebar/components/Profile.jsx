@@ -28,9 +28,9 @@ const Profile = () => {
                         <h1 className='text-2xl font-bold'>Profile</h1>
                         <button className='btn btn-circle btn-ghost justify-self-end' onClick={() => document.getElementById('profile-modal').close()}>X</button>
                     </div>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'>Name:{user.fullname}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'>Email:{user.email}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'>Id: {user._id}
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Name:</b> {user.fullname}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Email:</b> {user.email}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Id:</b> {user._id}
                         <button
                             className='btn btn-sm btn-ghost ml-2 justify-self-end'
                             onClick={() => copyToClipboard(user._id)}

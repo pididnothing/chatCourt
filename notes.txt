@@ -1,0 +1,9 @@
+Notes
+1. DataBase models should have been better planned.{
+- If court profile was planned earlier, I could have included participant usernames as well within the courtRoom model. Now it requires extra api calls to fetch the usernames matching the userIDs.
+- Had to change court elements (judge, proclients, proslawyers, etc.) to arrays midway to accomodate multiple users in each category.
+}
+2. CourtRoom Workflow should have been completely designed before starting programming{
+- Ended up as a normal chatting interface.
+- Requires a full revamp to create features such as verdict passing, presenting evidence and witnesses, citing precedent 
+}

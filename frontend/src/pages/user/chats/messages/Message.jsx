@@ -40,13 +40,17 @@ function Message(msg) {
         }
         return 'bg-gray-200';
     };
-    console.log(msg.msg.senderId._id, " : ", courtRoom);
     const isSender = uid === msg.msg.senderId._id;
-    const senderIsProsecution = courtRoom.prosLawyer[0] === msg.msg.senderId._id || courtRoom.prosClient[0] === msg.msg.senderId._id;
-    const senderIsDefence = courtRoom.defLawyer === msg.msg.senderId._id || courtRoom.defClient[0] === msg.msg.senderId._id;
-    const senderIsJudge = courtRoom.judge === msg.msg.senderId._id;
-    const isProsecution = uid === courtRoom.prosLawyer[0] || uid === courtRoom.prosClient[0];
-    const isDefence = uid === courtRoom.defLawyer[0] || uid === courtRoom.defClient[0];
+    const senderIsProsecution = (courtRoom.prosLawyer && courtRoom.prosLawyer.includes(msg.msg.senderId._id)) ||
+        (courtRoom.prosClient && courtRoom.prosClient.includes(msg.msg.senderId._id));
+    const senderIsDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(msg.msg.senderId._id)) ||
+        (courtRoom.defClient && courtRoom.defClient.includes(msg.msg.senderId._id));
+    const senderIsJudge = courtRoom.judge && courtRoom.judge.includes(msg.msg.senderId._id);
+    const isProsecution = (courtRoom.prosLawyer && courtRoom.prosLawyer.includes(uid)) ||
+        (courtRoom.prosClient && courtRoom.prosClient.includes(uid));
+    const isDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(uid)) ||
+        (courtRoom.defClient && courtRoom.defClient.includes(uid));
+    //console.log(msg.msg.senderId._id, " : isSender -", isSender, " : isProsecution -", senderIsProsecution, " : isDefence -", senderIsDefence, " : isJudge -", senderIsJudge);
 
     return (
         <div className={`chat ${isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
