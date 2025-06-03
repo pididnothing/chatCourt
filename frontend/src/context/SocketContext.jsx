@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            const socket = io(process.env.NODE_ENV === "production" ? "https://chatcourt.onrender.com:8000" : "http://localhost:8000", {
+            const socket = io("https://chatcourt.onrender.com:8000", {
                 query: {
                     userId: authUser._id,
                 },
