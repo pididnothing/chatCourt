@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState, useContext } from "react";
 import { useAuthContext } from "./authContext";
 import io from "socket.io-client";
+import dotenv from "dotenv";
 
 const SocketContext = createContext();
 
@@ -15,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if (authUser) {
-            const socket = io("http://localhost:8000", {
+            const socket = io(process.env.NODE_ENV === "production" ? "https://chatcourt.onrender.com:8000" : "http://localhost:8000", {
                 query: {
                     userId: authUser._id,
                 },
