@@ -18,7 +18,7 @@ function CourtCard({ courtRoomId, number }) {
     return (
         <div ref={courtcard}>
             <div className={`card-sm ${courtRoomId == selectedCourt ? "bg-accent" : "bg-base-100"} rounded p-1 m-1.5 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg hover:cursor-pointer`} onClick={() => { setSelectedCourt(courtRoomId) }}>
-                <div className='card-title'>{loading ? <span className='loading loading-infinity'></span> : courtCard.courtRoomName}</div>
+                <div className='card-title overflow-hidden'>{loading ? <span className='loading loading-infinity'></span> : courtCard.courtRoomName}</div>
             </div>
         </div>
     )

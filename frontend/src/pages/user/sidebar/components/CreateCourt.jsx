@@ -35,18 +35,22 @@ const CreateCourt = () => {
         }
         try {
             const res = await createCourt(courtData);
-            toast.success('Court Created Successfully')
-            setCourtData({
-                courtRoomName: '',
-                judge: '',
-                prosecutionLawyer: '',
-                prosecutionClient: '',
-                defenceLawyer: '',
-                defenceClient: ''
-            })
-            console.log(res)
-            setSelectedCourt(res.body.courtRoom._id)
-            setNewCourt(res.body.courtRoom._id)
+            if (res.status == 201) {
+                toast.success('Court Created Successfully')
+                setCourtData({
+                    courtRoomName: '',
+                    judge: '',
+                    prosLawyer: '',
+                    prosClient: '',
+                    defLawyer: '',
+                    defClient: ''
+                })
+                setSelectedCourt(res.body.courtRoom._id)
+                setNewCourt(res.body.courtRoom._id)
+            } else {
+                toast.error(res.body.error || 'Failed to create court')
+                console.log(res.body.error || 'Failed to create court')
+            }
         } catch (error) {
             toast.error(error.message)
             console.log(error.message)

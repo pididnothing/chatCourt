@@ -1,15 +1,20 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Message from '../messages/Message'
 import useGetMsgs from '../../../../hooks/useGetMsgs'
 import useCourt from '../../../../store/useCourt'
 import useGetCourtCard from '../../../../hooks/useGetCourtCard'
 import useListenMessages from '../../../../hooks/useListenMessages'
 import courtProfile from './courtProfile'
+import courtState from './courtState'
 
 function ChatTab() {
-    const { selectedCourt } = useCourt();
+    const user = localStorage.getItem('chat-user');
+    const uid = JSON.parse(user)._id;
+    const { selectedCourt, setSelectedCourt } = useCourt();
     const { loading, messages } = useGetMsgs(selectedCourt);
     const { courtCard } = useGetCourtCard(selectedCourt);
+    const [state, setState] = useState(courtCard.state);
+    //console.log("ChatTab - selectedCourt:", selectedCourt, "courtCard:", courtCard, "state:", state);
     useListenMessages();
 
     const chatContainerRef = useRef(null);
@@ -18,6 +23,7 @@ function ChatTab() {
         if (chatContainerRef.current) {
             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
+        setState(courtCard.state);
     }, [messages, selectedCourt]);
 
     if (selectedCourt === null)
@@ -27,7 +33,7 @@ function ChatTab() {
         loading
             ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div>
             : <div ref={chatContainerRef} className='w-full h-full relative rounded-box bg-white overflow-auto'>
-                <div className="sticky top-0 left-0 z-10">{courtProfile(courtCard)}</div>
+                <div className="flex-row sticky top-0 left-0 z-10">{courtProfile(courtCard)}{courtState({ courtCard, state, setState })}</div>
                 {messages.map(msg => <Message key={msg._id} msg={msg} courtRoom={courtCard} />)}
             </div>
     )

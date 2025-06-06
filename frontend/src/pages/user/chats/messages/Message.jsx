@@ -50,10 +50,11 @@ function Message(msg) {
         (courtRoom.prosClient && courtRoom.prosClient.includes(uid));
     const isDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(uid)) ||
         (courtRoom.defClient && courtRoom.defClient.includes(uid));
+    const isJudge = courtRoom.judge && courtRoom.judge.includes(uid);
     //console.log(msg.msg.senderId._id, " : isSender -", isSender, " : isProsecution -", senderIsProsecution, " : isDefence -", senderIsDefence, " : isJudge -", senderIsJudge);
 
     return (
-        <div className={`chat ${isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
+        <div className={`chat ${senderIsJudge ? 'justify-self-center' : isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) || (isJudge && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
             <div className="chat-header">
                 {msg.msg.senderId.username}
                 <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
