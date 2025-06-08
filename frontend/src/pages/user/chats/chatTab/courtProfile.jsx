@@ -1,12 +1,12 @@
 import { FaBook } from "react-icons/fa";
 
-function courtProfile(courtRoom) {
-    const court = courtRoom.court;
-    const judge = courtRoom.judge;
-    const prosLawyer = courtRoom.prosLawyer[0];
-    const defLawyer = courtRoom.defLawyer[0];
-    const prosClient = courtRoom.prosClient[0];
-    const defClient = courtRoom.defClient[0];
+function CourtProfile(courtRoom) {
+    const court = courtRoom.courtCard;
+    const judge = court.judge[0];
+    const prosLawyer = court.prosLawyer[0];
+    const defLawyer = court.defLawyer[0];
+    const prosClient = court.prosClient[0];
+    const defClient = court.defClient[0];
 
     return (
         <div>
@@ -28,4 +28,4 @@ function courtProfile(courtRoom) {
         </div>
     )
 }
-export default courtProfile;
+export default CourtProfile;

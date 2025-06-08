@@ -1,14 +1,12 @@
-import React from 'react';
 import useUpdateCourtState from '../../../../hooks/useUpdateCourtState';
 import useCourt from '../../../../store/useCourt';
 
-function courtState({ courtCard, state, setState }) {
+function CourtState({ courtCard, state, setState }) {
     const { updateCourtState } = useUpdateCourtState(courtCard._id);
     const handleUpdateCourtState = (newState) => {
         updateCourtState(newState);
         setState(newState);
     }
-
 
     return (
         <div>
@@ -23,4 +21,4 @@ function courtState({ courtCard, state, setState }) {
         </div>
     )
 }
-export default courtState;
+export default CourtState;

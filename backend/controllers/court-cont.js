@@ -126,10 +126,21 @@ export const updateCourtState = async (req, res) => {
     const courtRoomId = req.court.id;
     const courtRoom = await CourtRoom.findById(courtRoomId);
     courtRoom.state = req.body.state;
+    const senderId = req.user.id;
     await courtRoom.save();
     res
       .status(200)
       .json({ message: "Court Room state updated successfully", courtRoom });
+
+    const participants = req.court.participants.filter(
+      (participant) => participant.toString() !== senderId.toString()
+    );
+    participants.forEach(async (participant) => {
+      const receiverSocketId = getReceiverSocketId(participant);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newCourtState", courtRoom.state);
+      }
+    });
   } catch (error) {
     console.log("Error in updateCourtState controller", error.message);
     res.status(500).json({ error: "Internal Server Error" });

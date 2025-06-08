@@ -6,6 +6,8 @@ const useCourt = create((set) => ({
   setSelectedCourt: (selCourt) => set({ selectedCourt: selCourt }),
   messages: [],
   setMessages: (msgs) => set({ messages: msgs }),
+  state: "judge",
+  setState: (stat) => set({ state: stat }),
 }));
 
 export default useCourt;
