@@ -17,7 +17,6 @@ function ChatTab() {
     //console.log("ChatTab - selectedCourt:", selectedCourt, "courtCard:", courtCard, "state:", state);
     useListenMessages();
     useListenCourtStateUpdate();
-
     const chatContainerRef = useRef(null);
 
     useEffect(() => {

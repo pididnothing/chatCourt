@@ -5,7 +5,6 @@ function Message(msg) {
     const uid = JSON.parse(user)._id;
     const time = new Date(msg.msg.updatedAt);
     const courtRoom = msg.courtRoom;
-
     const getTimeDifference = (date) => {
         const now = new Date();
         const diffInMs = now - date;
@@ -40,7 +39,7 @@ function Message(msg) {
         }
         return 'bg-gray-200';
     };
-    const isSender = uid === msg.msg.senderId._id;
+    const isSender = uid === msg.msg.senderId;
     const senderIsProsecution = (courtRoom.prosLawyer && courtRoom.prosLawyer.includes(msg.msg.senderId._id)) ||
         (courtRoom.prosClient && courtRoom.prosClient.includes(msg.msg.senderId._id));
     const senderIsDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(msg.msg.senderId._id)) ||
@@ -51,7 +50,6 @@ function Message(msg) {
     const isDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(uid)) ||
         (courtRoom.defClient && courtRoom.defClient.includes(uid));
     const isJudge = courtRoom.judge && courtRoom.judge.includes(uid);
-    //console.log(msg.msg.senderId._id, " : isSender -", isSender, " : isProsecution -", senderIsProsecution, " : isDefence -", senderIsDefence, " : isJudge -", senderIsJudge);
 
     return (
         <div className={`chat ${senderIsJudge ? 'justify-self-center' : isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) || (isJudge && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>

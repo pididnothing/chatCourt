@@ -22,6 +22,13 @@ const useSendMsgs = () => {
       // data.message.senderId = { _id: sid, username: authUser.username };
       const msgs = [...messages];
       if (res.ok) {
+        // Ensure senderId is an object with _id and username
+        if (typeof data.message.senderId === "string") {
+          data.message.senderId = {
+            _id: data.message.senderId,
+            username: authUser?.username || "Unknown",
+          };
+        }
         msgs.push(data.message);
         setMessages(msgs);
       } else {

@@ -8,7 +8,24 @@ const useListenMessages = () => {
 
   useEffect(() => {
     socket?.on("newMsg", (msg) => {
-      setMessages([...messages, msg]);
+      // Convert senderId to object if it's a string
+      let newMsg = { ...msg };
+      if (typeof newMsg.senderId === "string") {
+        // Try to find username from previous messages
+        const found = messages.find(
+          (m) =>
+            typeof m.senderId === "object" && m.senderId._id === newMsg.senderId
+        );
+        if (found && found.senderId && found.senderId.username) {
+          newMsg.senderId = {
+            _id: newMsg.senderId,
+            username: found.senderId.username,
+          };
+        } else {
+          newMsg.senderId = { _id: newMsg.senderId, username: "Unknown" };
+        }
+      }
+      setMessages([...messages, newMsg]);
     });
 
     return () => {
