@@ -19,7 +19,7 @@ const router = express.Router();
 router.post("/create-court-room", protectCourt, createCourtRoom);
 
 // send message in a court room
-router.post("/send-msg/:cid", protectSendMsg, sendMsg);
+router.post("/send-msg/:cid/:command", protectSendMsg, sendMsg);
 
 // get messages in a court room
 router.get("/get-msg/:cid", protectMsg, getMsgs);

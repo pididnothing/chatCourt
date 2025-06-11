@@ -10,14 +10,25 @@ const useSendMsgs = () => {
   const sendMsg = async (content) => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/court/send-msg/${selectedCourt}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ content }),
-      });
+      // Check if the message starts with a slash ("/") indicating a command
+      let command = "none";
+      if (typeof content === "string" && content.trim().startsWith("./")) {
+        const parts = content.trim().split(" ");
+        command = parts[0].substring(2); // Remove "./" from the command
+        content = parts[1];
+      }
+      const res = await fetch(
+        `/api/court/send-msg/${selectedCourt}/${command}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content }),
+        }
+      );
       const data = await res.json();
+      // console.log("useSendMsgs - data:", data);
       // const sid = data.message.senderId;
       // data.message.senderId = { _id: sid, username: authUser.username };
       const msgs = [...messages];
@@ -26,8 +37,9 @@ const useSendMsgs = () => {
         if (typeof data.message.senderId === "string") {
           data.message.senderId = {
             _id: data.message.senderId,
-            username: authUser?.username || "Unknown",
+            username: authUser.username,
           };
+          data.message.command = command;
         }
         msgs.push(data.message);
         setMessages(msgs);

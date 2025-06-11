@@ -5,6 +5,7 @@ function Message(msg) {
     const uid = JSON.parse(user)._id;
     const time = new Date(msg.msg.updatedAt);
     const courtRoom = msg.courtRoom;
+    const command = msg.msg.command;
     const getTimeDifference = (date) => {
         const now = new Date();
         const diffInMs = now - date;
@@ -57,7 +58,7 @@ function Message(msg) {
                 {msg.msg.senderId.username}
                 <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
             </div>
-            <div className={`chat-bubble ${getRoleClass()} break-words whitespace-pre-line max-w-md`}>
+            <div className={`chat-bubble ${getRoleClass()} ${command == "objection" ? 'border-l-4 border-red-500' : ''} break-words whitespace-pre-line max-w-md`}>
                 {msg.msg.content}
             </div>
             <div className="chat-footer opacity-50">Seen</div>

@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import CourtRoom from "../models/courtroom.model.js";
 
-// used in sendMsg and getMsg routes. user and court existence and participant check. Also creates req.user and req.court.
+// used in getMsg route. user and court existence and participant check. Also creates req.user and req.court.
 export const protectMsg = async (req, res, next) => {
   try {
     const jwttoken = req.cookies.token;
@@ -39,6 +39,8 @@ export const protectMsg = async (req, res, next) => {
     if (!court.participants.includes(user.id)) {
       return res.status(401).json({
         error: "Unauthorized access: User not a participant in this Court Room",
+        court: court,
+        user: user,
       });
     }
 
@@ -89,7 +91,28 @@ export const protectSendMsg = async (req, res, next) => {
     }
 
     // Check if user is allowed to send message based on court state
+    const command = req.params.command;
+    if (command == "objection") {
+      if (court.state == "open" || court.state == "judge") {
+        return res.status(401).json({
+          error:
+            "Unauthorized access: Objections can not be made in open or judge state",
+        });
+      }
+      if (
+        (!court.prosLawyer.includes(user.id) &&
+          !court.defLawyer.includes(user.id)) ||
+        (court.state == "prosecution" && court.prosLawyer.includes(user.id)) ||
+        (court.state == "defence" && court.defLawyer.includes(user.id))
+      ) {
+        return res.status(401).json({
+          error:
+            "Unauthorized access: Objections can only be made by prosecution or defence lawyers during the opposition's presentation",
+        });
+      }
+    }
     if (
+      command === "objection" ||
       court.state === "open" ||
       (court.judge && court.judge.includes(user.id)) ||
       (((court.prosLawyer && court.prosLawyer.includes(user.id)) ||

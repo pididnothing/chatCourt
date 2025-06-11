@@ -68,6 +68,7 @@ export const sendMsg = async (req, res) => {
     const courtRoomId = req.court.id;
     const content = req.body.content;
     const senderId = req.user.id;
+    const command = req.params.command;
     if (!content) {
       return res.status(400).json({ error: "Message content is required" });
     }
@@ -75,6 +76,7 @@ export const sendMsg = async (req, res) => {
       senderId,
       courtRoomId,
       content,
+      command,
     });
     const courtRoom = req.court;
     courtRoom.messages.push(newMsg._id);
@@ -89,6 +91,17 @@ export const sendMsg = async (req, res) => {
         io.to(receiverSocketId).emit("newMsg", newMsg);
       }
     });
+    if (command === "objection") {
+    }
+    if (command === "objection") {
+      const updateReq = { ...req, body: { state: "judge" } };
+      const updateRes = {
+        status: () => ({
+          json: () => {},
+        }),
+      };
+      await updateCourtState(updateReq, updateRes);
+    }
     res.status(201).json({ message: newMsg });
   } catch (error) {
     console.log("Error in sendMsg controller", error.message);
