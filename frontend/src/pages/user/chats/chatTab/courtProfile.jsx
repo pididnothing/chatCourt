@@ -2,11 +2,12 @@ import { FaBook } from "react-icons/fa";
 
 function CourtProfile(courtRoom) {
     const court = courtRoom.courtCard;
-    const judge = court.judge[0];
-    const prosLawyer = court.prosLawyer[0];
-    const defLawyer = court.defLawyer[0];
-    const prosClient = court.prosClient[0];
-    const defClient = court.defClient[0];
+    const judge = Array.isArray(court.judge) ? court.judge.join(', ') : court.judge;
+    const prosLawyer = Array.isArray(court.prosLawyer) ? court.prosLawyer.join(', ') : court.prosLawyer;
+    const defLawyer = Array.isArray(court.defLawyer) ? court.defLawyer.join(', ') : court.defLawyer;
+    const prosClient = Array.isArray(court.prosClient) ? court.prosClient.join(', ') : court.prosClient;
+    const defClient = Array.isArray(court.defClient) ? court.defClient.join(', ') : court.defClient;
+    const jury = Array.isArray(court.jury) ? court.jury.join(', ') : court.jury;
 
     return (
         <div>
@@ -23,6 +24,7 @@ function CourtProfile(courtRoom) {
                     <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Prosecution Client:</b> {prosClient}</h2>
                     <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Defence Lawyer:</b> {defLawyer}</h2>
                     <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Defence Client:</b> {defClient}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Jury Members:</b> {jury}</h2>
                 </fieldset>
             </dialog>
         </div>

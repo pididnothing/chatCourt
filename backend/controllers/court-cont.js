@@ -18,14 +18,30 @@ export const createCourtRoom = async (req, res) => {
       prosClient,
       defLawyer,
       defClient,
+      jury,
     } = req.body;
-    const participants = [judge, prosLawyer, prosClient, defLawyer, defClient];
+    const participants = [
+      judge,
+      prosLawyer,
+      prosClient,
+      defLawyer,
+      defClient,
+      jury,
+    ];
+
+    // Flatten participants array
+    const flatParticipants = participants.flat();
     for (let i = 0; i < participants.length; i++) {
-      const participant = await User.findById(participants[i]);
-      if (!participant) {
-        return res
-          .status(404)
-          .json({ error: `Participant with id ${participants[i]} not found` });
+      for (let j = 0; j < participants[i].length; j++) {
+        // if (participants[i][j] == "") {
+        //   continue;
+        // }
+        const participant = await User.findById(participants[i][j]);
+        if (!participant) {
+          return res.status(404).json({
+            error: `Participant with id ${participants[i][j]} not found`,
+          });
+        }
       }
     }
     if (
@@ -33,20 +49,19 @@ export const createCourtRoom = async (req, res) => {
       !participants ||
       !judge ||
       !prosLawyer ||
-      !prosClient ||
-      !defLawyer ||
-      !defClient
+      !defLawyer
     ) {
       return res.status(400).json({ error: "All fields are required" });
     }
     const newCourtRoom = new CourtRoom({
       courtRoomName,
-      participants,
+      participants: flatParticipants,
       judge,
       prosLawyer,
       prosClient,
       defLawyer,
       defClient,
+      jury,
       messages: [],
     });
 

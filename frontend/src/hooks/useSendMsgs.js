@@ -15,7 +15,7 @@ const useSendMsgs = () => {
       if (typeof content === "string" && content.trim().startsWith("./")) {
         const parts = content.trim().split(" ");
         command = parts[0].substring(2); // Remove "./" from the command
-        content = parts[1];
+        content = parts.slice(1).join(" ");
       }
       const res = await fetch(
         `/api/court/send-msg/${selectedCourt}/${command}`,

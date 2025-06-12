@@ -40,7 +40,6 @@ const courtRoomSchema = new mongoose.Schema(
           ref: "User",
         },
       ],
-      required: "Prosecution Client(s) are required",
     },
     defLawyer: {
       type: [
@@ -58,8 +57,16 @@ const courtRoomSchema = new mongoose.Schema(
           ref: "User",
         },
       ],
-      required: "Defence Client(s) are required",
     },
+    jury: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+    },
+
     messages: [
       {
         type: mongoose.Schema.Types.ObjectId,

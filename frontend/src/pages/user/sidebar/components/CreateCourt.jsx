@@ -17,33 +17,45 @@ const CreateCourt = () => {
     const { setSelectedCourt } = useCourt();
     const { setNewCourt } = useNewCourt();
     const [courtData, setCourtData] = React.useState({
-        courtRoomName: '',
-        judge: '',
-        prosLawyer: '',
-        prosClient: '',
-        defLawyer: '',
-        defClient: ''
+        courtRoomName: "",
+        judge: [],
+        prosLawyer: [],
+        prosClient: [],
+        defLawyer: [],
+        defClient: [],
+        jury: []
     });
     const handleSubmit = (e) => {
         document.getElementById('create-form-modal').showModal()
     }
     const handleCreate = async (e) => {
         if (loading) return;
-        const success = handleInputErrors(courtData);
+        // Remove empty strings from all arrays in courtData
+        const cleanedCourtData = {
+            ...courtData,
+            judge: courtData.judge.filter(str => str.trim() !== ""),
+            prosLawyer: courtData.prosLawyer.filter(str => str.trim() !== ""),
+            prosClient: courtData.prosClient.filter(str => str.trim() !== ""),
+            defLawyer: courtData.defLawyer.filter(str => str.trim() !== ""),
+            defClient: courtData.defClient.filter(str => str.trim() !== ""),
+            jury: courtData.jury.filter(str => str.trim() !== "")
+        };
+        const success = handleInputErrors(cleanedCourtData);
         if (!success) {
             return false;
         }
         try {
-            const res = await createCourt(courtData);
+            const res = await createCourt(cleanedCourtData);
             if (res.status == 201) {
                 toast.success('Court Created Successfully')
                 setCourtData({
-                    courtRoomName: '',
-                    judge: '',
-                    prosLawyer: '',
-                    prosClient: '',
-                    defLawyer: '',
-                    defClient: ''
+                    courtRoomName: "",
+                    judge: [],
+                    prosLawyer: [],
+                    prosClient: [],
+                    defLawyer: [],
+                    defClient: [],
+                    jury: []
                 })
                 setSelectedCourt(res.body.courtRoom._id)
                 setNewCourt(res.body.courtRoom._id)
@@ -58,8 +70,8 @@ const CreateCourt = () => {
             document.getElementById('create-form-modal').close()
         }
     }
-    const handleInputErrors = ({ courtRoomName, judge, prosecutionLawyer, prosecutionClient, defenceLawyer, defenceClient }) => {
-        if (courtRoomName === '' || judge === '' || prosecutionLawyer === '' || prosecutionClient === '' || defenceLawyer === '' || defenceClient === '') {
+    const handleInputErrors = ({ courtRoomName, judge, prosecutionLawyer, defenceLawyer }) => {
+        if (courtRoomName === '' || judge === '' || prosecutionLawyer === '' || defenceLawyer === '') {
             toast.error('All fields are required')
             return false
         }
@@ -78,15 +90,17 @@ const CreateCourt = () => {
                     <label className='label'>Court Room Name</label>
                     <input type='text' name='courtRoomName' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Court Room Name' onChange={(e) => setCourtData(prevState => ({ ...prevState, courtRoomName: e.target.value }))} value={courtData.courtRoomName} />
                     <label className='label'>Judge</label>
-                    <input type='text' name='judge' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Judge' onChange={(e) => setCourtData(prevState => ({ ...prevState, judge: e.target.value }))} value={courtData.judge} />
+                    <input type='text' name='judge' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Judge' onChange={(e) => setCourtData(prevState => ({ ...prevState, judge: e.target.value.trim().split(",") }))} value={courtData.judge} />
                     <label className='label'>Prosecution Lawyer</label>
-                    <input type='text' name='prosecutionLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosLawyer: e.target.value }))} value={courtData.prosLawyer} />
+                    <input type='text' name='prosecutionLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosLawyer: e.target.value.trim().split(",") }))} value={courtData.prosLawyer} />
                     <label className='label'>Prosecution Client</label>
-                    <input type='text' name='prosecutionClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosClient: e.target.value }))} value={courtData.prosClient} />
+                    <input type='text' name='prosecutionClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosClient: e.target.value.trim().split(",") }))} value={courtData.prosClient} />
                     <label className='label'>Defence Lawyer</label>
-                    <input type='text' name='defenceLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, defLawyer: e.target.value }))} value={courtData.defLawyer} />
+                    <input type='text' name='defenceLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, defLawyer: e.target.value.trim().split(",") }))} value={courtData.defLawyer} />
                     <label className='label'>Defence Client</label>
-                    <input type='text' name='defenceClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, defClient: e.target.value }))} value={courtData.defClient} />
+                    <input type='text' name='defenceClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, defClient: e.target.value.trim().split(",") }))} value={courtData.defClient} />
+                    <label className='label'>Jury Members</label>
+                    <input type='text' name='jury' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Jury Members' onChange={(e) => setCourtData(prevState => ({ ...prevState, jury: e.target.value.trim().split(",") }))} value={courtData.jury} />
                     <button className='btn w-full' onClick={handleCreate}>{loading ? <span className='loading loading-spinner'></span> : 'Create Court'}</button>
                 </fieldset>
             </dialog>
