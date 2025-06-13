@@ -75,7 +75,7 @@ const courtRoomSchema = new mongoose.Schema(
     ],
     state: {
       type: String,
-      enum: ["open", "defence", "prosecution", "judge"],
+      enum: ["open", "defence", "prosecution", "judge", "jury", "closed"],
       default: "open",
     },
   },

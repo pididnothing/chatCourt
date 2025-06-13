@@ -107,9 +107,16 @@ export const sendMsg = async (req, res) => {
       }
     });
     if (command === "objection") {
-    }
-    if (command === "objection") {
       const updateReq = { ...req, body: { state: "judge" } };
+      const updateRes = {
+        status: () => ({
+          json: () => {},
+        }),
+      };
+      await updateCourtState(updateReq, updateRes);
+    }
+    if (command === "verdict") {
+      const updateReq = { ...req, body: { state: "closed" } };
       const updateRes = {
         status: () => ({
           json: () => {},
@@ -127,10 +134,19 @@ export const sendMsg = async (req, res) => {
 export const getMsgs = async (req, res) => {
   try {
     const courtRoomId = req.court.id;
-    const messages = await Msg.find({ courtRoomId }).populate(
+    const user = req.user;
+    let messages = await Msg.find({ courtRoomId }).populate(
       "senderId",
       "username"
     );
+    // Filter out jury messages if the user is not a judge or jury member
+    if (
+      !(req.court.judge.includes(user.id) || req.court.jury.includes(user.id))
+    ) {
+      messages = messages.filter(
+        (msg) => !req.court.jury.includes(msg.senderId._id)
+      );
+    }
     res.status(200).json({ messages });
   } catch (error) {
     console.log("Error in getMsg controller", error.message);

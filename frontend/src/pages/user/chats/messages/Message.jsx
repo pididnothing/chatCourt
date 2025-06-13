@@ -37,31 +37,34 @@ function Message(msg) {
             return 'bg-red-200';
         } else if (senderIsDefence) {
             return 'bg-blue-200';
+        } else if (senderIsJury) {
+            return 'bg-green-200';
         }
         return 'bg-gray-200';
     };
-    const isSender = uid === msg.msg.senderId;
+    const isSender = uid === msg.msg.senderId._id;
     const senderIsProsecution = (courtRoom.prosLawyer && courtRoom.prosLawyer.includes(msg.msg.senderId._id)) ||
         (courtRoom.prosClient && courtRoom.prosClient.includes(msg.msg.senderId._id));
     const senderIsDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(msg.msg.senderId._id)) ||
         (courtRoom.defClient && courtRoom.defClient.includes(msg.msg.senderId._id));
     const senderIsJudge = courtRoom.judge && courtRoom.judge.includes(msg.msg.senderId._id);
+    const senderIsJury = courtRoom.jury && courtRoom.jury.includes(msg.msg.senderId._id);
     const isProsecution = (courtRoom.prosLawyer && courtRoom.prosLawyer.includes(uid)) ||
         (courtRoom.prosClient && courtRoom.prosClient.includes(uid));
     const isDefence = (courtRoom.defLawyer && courtRoom.defLawyer.includes(uid)) ||
         (courtRoom.defClient && courtRoom.defClient.includes(uid));
     const isJudge = courtRoom.judge && courtRoom.judge.includes(uid);
+    const isJury = courtRoom.jury && courtRoom.jury.includes(uid);
 
     return (
-        <div className={`chat ${senderIsJudge ? 'justify-self-center' : isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) || (isJudge && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
+        <div className={`chat ${senderIsJudge ? 'justify-self-center' : isSender || (isProsecution && senderIsProsecution) || (isDefence && senderIsDefence) || (isJudge && senderIsDefence) || (isJury && isSender) || (isJury && senderIsDefence) ? 'chat-end' : 'chat-start'}`}>
             <div className="chat-header">
                 {msg.msg.senderId.username}
                 <time className="text-xs opacity-50">{getTimeDifference(time)}</time>
             </div>
-            <div className={`chat-bubble ${getRoleClass()} ${command == "objection" ? 'border-l-4 border-red-500' : ''} break-words whitespace-pre-line max-w-md`}>
+            <div className={`chat-bubble ${getRoleClass()} ${command == "objection" ? 'border-l-4 border-red-500' : command == "verdict" ? 'border-l-4 border-green-500' : ''} break-words whitespace-pre-line max-w-md`}>
                 {msg.msg.content}
             </div>
-            <div className="chat-footer opacity-50">Seen</div>
         </div>
     )
 }

@@ -17,6 +17,8 @@ function CourtState({ courtCard, state, setState }) {
                 <li><a onClick={() => handleUpdateCourtState('defence')}>Defence</a></li>
                 <li><a onClick={() => handleUpdateCourtState('judge')}>Judge</a></li>
                 <li><a onClick={() => handleUpdateCourtState('open')}>Open</a></li>
+                <li><a onClick={() => handleUpdateCourtState('jury')}>Jury</a></li>
+                <li><a onClick={() => handleUpdateCourtState('closed')}>Closed</a></li>
             </ul>
         </div>
     )

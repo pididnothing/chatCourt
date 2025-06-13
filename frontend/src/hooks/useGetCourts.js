@@ -34,7 +34,7 @@ function useGetCourts() {
     getCourts();
   }, [newCourt]);
 
-  return { loading, courts };
+  return { loading, courts, setCourts };
 }
 
 export default useGetCourts;

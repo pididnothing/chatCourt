@@ -90,6 +90,13 @@ export const protectSendMsg = async (req, res, next) => {
       });
     }
 
+    // check for closed court
+    if (court.state === "closed") {
+      return res.status(401).json({
+        error: "Unauthorized access: Court is closed",
+      });
+    }
+
     // Check if user is allowed to send message based on court state
     const command = req.params.command;
     if (command == "objection") {
@@ -120,7 +127,8 @@ export const protectSendMsg = async (req, res, next) => {
         court.state === "prosecution") ||
       (((court.defLawyer && court.defLawyer.includes(user.id)) ||
         (court.defClient && court.defClient.includes(user.id))) &&
-        court.state === "defence") // <-- fix here
+        court.state === "defence") ||
+      (court.jury && court.jury.includes(user.id) && court.state === "jury")
     ) {
       // User is allowed to send message
     } else {
@@ -200,7 +208,7 @@ export const protectCourtState = async (req, res, next) => {
     if (!court) {
       return res.status(404).json({ error: "Court Room not found" });
     }
-    if (decoded.id == court.judge) {
+    if (court.judge.includes(decoded.id)) {
       req.court = court;
       next();
     } else {

@@ -87,22 +87,23 @@ const CreateCourt = () => {
                         <h1 className='text-2xl font-bold'>Provide Court Details</h1>
                         <button className='btn btn-circle btn-ghost justify-self-end' onClick={() => document.getElementById('create-form-modal').close()}>X</button>
                     </div>
-                    <label className='label'>Court Room Name</label>
+                    <label className='label'>Court Room Name <span className='text-red-600'>*</span></label>
                     <input type='text' name='courtRoomName' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Court Room Name' onChange={(e) => setCourtData(prevState => ({ ...prevState, courtRoomName: e.target.value }))} value={courtData.courtRoomName} />
-                    <label className='label'>Judge</label>
-                    <input type='text' name='judge' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Judge' onChange={(e) => setCourtData(prevState => ({ ...prevState, judge: e.target.value.trim().split(",") }))} value={courtData.judge} />
-                    <label className='label'>Prosecution Lawyer</label>
-                    <input type='text' name='prosecutionLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosLawyer: e.target.value.trim().split(",") }))} value={courtData.prosLawyer} />
+                    <label className='label'>Judge<span className='text-red-600'>*</span></label>
+                    <input type='text' name='judge' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Judge(s) ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, judge: e.target.value.trim().split(",") }))} value={courtData.judge} />
+                    <label className='label'>Prosecution Lawyer<span className='text-red-600'>*</span></label>
+                    <input type='text' name='prosecutionLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Prosecution Lawyer(s) ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosLawyer: e.target.value.trim().split(",") }))} value={courtData.prosLawyer} />
                     <label className='label'>Prosecution Client</label>
-                    <input type='text' name='prosecutionClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Prosecution Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosClient: e.target.value.trim().split(",") }))} value={courtData.prosClient} />
-                    <label className='label'>Defence Lawyer</label>
-                    <input type='text' name='defenceLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Lawyer' onChange={(e) => setCourtData(prevState => ({ ...prevState, defLawyer: e.target.value.trim().split(",") }))} value={courtData.defLawyer} />
+                    <input type='text' name='prosecutionClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Prosecution Client(s) ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, prosClient: e.target.value.trim().split(",") }))} value={courtData.prosClient} />
+                    <label className='label'>Defence Lawyer<span className='text-red-600'>*</span></label>
+                    <input type='text' name='defenceLawyer' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Defence Lawyer(s) ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, defLawyer: e.target.value.trim().split(",") }))} value={courtData.defLawyer} />
                     <label className='label'>Defence Client</label>
-                    <input type='text' name='defenceClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Defence Client' onChange={(e) => setCourtData(prevState => ({ ...prevState, defClient: e.target.value.trim().split(",") }))} value={courtData.defClient} />
+                    <input type='text' name='defenceClient' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Defence Client(s) ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, defClient: e.target.value.trim().split(",") }))} value={courtData.defClient} />
                     <label className='label'>Jury Members</label>
-                    <input type='text' name='jury' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Jury Members' onChange={(e) => setCourtData(prevState => ({ ...prevState, jury: e.target.value.trim().split(",") }))} value={courtData.jury} />
+                    <input type='text' name='jury' className='input w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200' placeholder='Enter the Jury Members ID separated by commas' onChange={(e) => setCourtData(prevState => ({ ...prevState, jury: e.target.value.trim().split(",") }))} value={courtData.jury} />
                     <button className='btn w-full' onClick={handleCreate}>{loading ? <span className='loading loading-spinner'></span> : 'Create Court'}</button>
                 </fieldset>
+                <span className='text-sm text-red-600'>* indicates required fields</span>
             </dialog>
         </div>
     )
