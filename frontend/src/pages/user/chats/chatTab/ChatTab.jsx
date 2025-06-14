@@ -32,8 +32,11 @@ function ChatTab() {
     return (
         loading
             ? <div className='w-full h-full bg-transparent flex justify-center items-center'><div className='loading loading-spinner'></div></div>
-            : <div ref={chatContainerRef} className='w-full h-full relative rounded-box bg-white overflow-auto'>
-                <div className="flex-row sticky top-0 left-0 z-10">
+            : <div
+                ref={chatContainerRef}
+                className='w-full h-full relative rounded-box bg-white overflow-auto touch-pan-y'
+            >
+                <div className="flex-row sticky top-0 left-0 z-20">
                     <CourtProfile courtCard={courtCard} />
                     <CourtState courtCard={courtCard} state={state} setState={setState} />
                 </div>

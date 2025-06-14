@@ -16,13 +16,17 @@ function Sidebar() {
     gsap.registerPlugin(TextPlugin);
 
     useGSAP(() => {
-        const h = window.innerHeight;
-        gsap.from(sidebar.current, { y: -h, duration: 1.5, ease: "bounce" });
+        // Only animate if not smartphone size (e.g., width > 640px)
+        if (window.innerWidth > 640) {
+            const h = window.innerHeight;
+            gsap.from(sidebar.current, { y: -h, duration: 1.5, ease: "bounce" });
+        }
         gsap.to(title.current, { text: { value: "cC." }, duration: 1, ease: "none", delay: 1.6 });
+
     });
 
     return (
-        <div ref={sidebar} className=" flex-col font-mono bg-base-300 rounded-box l:w-2/10 md:w-3/10 sm:w-3/10 w-4/10  h-full p-2.5 overflow-auto">
+        <div ref={sidebar} className=" flex-col font-mono bg-base-300 rounded-box l:w-2/10 md:w-3/10 sm:w-3/10 w-10/10  h-full p-2.5 overflow-auto">
             <div className='flex flex-col h-3/20'>
                 <div className='flex justify-between'>
                     <h1 ref={title} className='text-5xl'></h1>
@@ -35,7 +39,7 @@ function Sidebar() {
             <div className='flex flex-col h-14/20 overflow-auto'>
                 <Courts />
             </div>
-            <div className='divider px-3'></div>
+            {window.innerWidth > 640 ? <div className='divider px-3'></div> : null}
             <div className='flex flex-col h-1/30'>
                 <Logout />
             </div>

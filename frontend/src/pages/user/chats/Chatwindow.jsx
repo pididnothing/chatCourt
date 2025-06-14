@@ -9,6 +9,8 @@ function Chatwindow() {
     gsap.registerPlugin(useGSAP); // register the hook to avoid React version discrepancies
     const h = window.innerHeight;
     useGSAP(() => {
+        // Only animate if not smartphone size (e.g., width > 640px)
+        if (window.innerWidth <= 640) return;
         gsap.from(chatwindow.current, { y: h, duration: 1.5, ease: "bounce" });
     });
     return (
