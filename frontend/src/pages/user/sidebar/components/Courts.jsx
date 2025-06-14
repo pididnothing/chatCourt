@@ -1,7 +1,7 @@
 import React from 'react'
 import CourtCard from './CourtCard'
 import useGetCourts from '../../../../hooks/useGetCourts';
-import ClosedCourtFilter from './closedCourtFilter';
+import ClosedCourtFilter from './ClosedCourtFilter';
 
 function Courts() {
     const { loading, courts } = useGetCourts();
