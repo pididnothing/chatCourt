@@ -32,9 +32,13 @@ While many rules of proceedings and methods of enforcing them remain to be integ
 ### ⚖️ **Courtroom Procedure Simulation**: objections, jury discussion, verdict declaration  
   - *Objections*: The in-line command "./objection" can be used to object to a statement of the opposition when they have access to the court. Eg. a defense attorney may object to a statement made by the prosecution attorney while the court is still in the *Prosecution* state. This automatically changes the court's state to *Judge*, providing thej udge with the opportunity to handle the objection.  
     ![image](https://github.com/user-attachments/assets/2e3123a7-7bdc-4c51-a93b-68467c7baca9)
+    ![image](https://github.com/user-attachments/assets/e03d2287-27d2-4b04-a07a-98428e79a679)
+
 
   - *Verdict*: The in-line command "./verdict" can be used by the judge to pass the verdict. This automatically changes the state of the court to *Closed*.  
-    ![image](https://github.com/user-attachments/assets/dd70a015-96b0-49f1-8b78-dadf8debabe0)  
+    ![image](https://github.com/user-attachments/assets/dd70a015-96b0-49f1-8b78-dadf8debabe0)
+    ![image](https://github.com/user-attachments/assets/ba697e07-5d22-48ca-b7a0-682d35564222)
+
     [in-line commands must be typed at the start of a message.]
   - *Jury Secrecy*: Messages sent by members of the jury are only visible to other members of the jury and to the judge.  
     ![image](https://github.com/user-attachments/assets/223b4313-3f56-459a-ad59-180e13c4be96)
