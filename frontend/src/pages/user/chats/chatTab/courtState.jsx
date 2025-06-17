@@ -3,9 +3,9 @@ import useCourt from '../../../../store/useCourt';
 
 function CourtState({ courtCard, state, setState }) {
     const { updateCourtState } = useUpdateCourtState(courtCard._id);
-    const handleUpdateCourtState = (newState) => {
-        updateCourtState(newState);
-        setState(newState);
+    const handleUpdateCourtState = async (newState) => {
+        const res = await updateCourtState(newState);
+        if (res && res.ok) setState(newState);
     }
 
     if (window.innerWidth < 640) {

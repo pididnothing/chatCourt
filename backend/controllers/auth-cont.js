@@ -1,4 +1,5 @@
 import User from "../models/user.model.js";
+import CourtRoom from "../models/courtroom.model.js";
 import bcrypt from "bcryptjs";
 import genTokenandCookie from "../utils/tokenGen.js";
 
@@ -20,13 +21,11 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res
-        .status(400)
-        .json({
-          error: "Invalid Password",
-          password: password,
-          userPassword: user.password,
-        });
+      return res.status(400).json({
+        error: "Invalid Password",
+        password: password,
+        userPassword: user.password,
+      });
     }
     genTokenandCookie(user._id, res);
     res.status(200).json({
@@ -70,16 +69,36 @@ export const signup = async (req, res) => {
       return res.status(400).json({ error: "Username already exists" });
     }
 
+    // Fetch the demo court room
+    const demoCourt = await CourtRoom.findOne({
+      _id: "68514f738ac890f943e5b353",
+    });
+
+    const courts = [demoCourt._id];
     const newUser = new User({
       fullname,
       email,
       username,
       password: hash,
+      courts: courts,
     });
 
     genTokenandCookie(newUser._id, res);
+
+    // Automatically add the new user to the DemoCourt jury
+
     console.log(newUser);
     await newUser.save();
+    if (demoCourt) {
+      demoCourt.jury.push(newUser._id);
+      demoCourt.participants.push(newUser._id);
+      const res = await demoCourt.save();
+    }
+
+    const demoCourtUpdated = await CourtRoom.findOne({
+      _id: "68514f738ac890f943e5b353",
+    });
+
     res.status(200).json({
       message: "User created successfully",
       _id: newUser._id,

@@ -5,7 +5,7 @@ import ClosedCourtFilter from './ClosedCourtFilter';
 
 function Courts() {
     const { loading, courts } = useGetCourts();
-    const [closedFilter, setClosedFilter] = React.useState(true);
+    const [closedFilter, setClosedFilter] = React.useState(false);
     // console.log(courts);
 
     return (

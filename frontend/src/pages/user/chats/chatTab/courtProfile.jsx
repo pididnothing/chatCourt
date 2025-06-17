@@ -19,12 +19,12 @@ function CourtProfile(courtRoom) {
                         <h1 className='text-2xl font-bold'>Court Profile</h1>
                         <button className='btn btn-circle btn-ghost justify-self-end' onClick={() => document.getElementById('court-profile-modal').close()}>X</button>
                     </div>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Judge:</b> {judge}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Prosecution Lawyer:</b> {prosLawyer}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Prosecution Client:</b> {prosClient}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Defence Lawyer:</b> {defLawyer}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Defence Client:</b> {defClient}</h2>
-                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box'><b>Jury Members:</b> {jury}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Judge:</b> {judge}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Prosecution Lawyer:</b> {prosLawyer}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Prosecution Client:</b> {prosClient}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Defence Lawyer:</b> {defLawyer}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Defence Client:</b> {defClient}</h2>
+                    <h2 className='text-xl w-full bg-base-300 border-0 transition duration-500 hover:-translate-y-0.5 hover:drop-shadow-lg text-base-200 p-1 rounded-box overflow-y-auto max-h-[3.2em] leading-tight' style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'auto' }}> <b>Jury Members:</b> {jury}</h2>
                 </fieldset>
             </dialog>
         </div>
